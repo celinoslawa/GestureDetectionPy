@@ -58,7 +58,7 @@ if cap.isOpened() == False:
     print ("VideoCapture failed")
 #cap.set(cv2.CAP_PROP_FRAME_WIDTH,480)
 #cap.set(cv2.CAP_PROP_FRAME_HEIGHT,800)
-
+iP = imProc.ImProc()
 while(True):
     ret, frame = cap.read()
     if ret == False:
@@ -68,10 +68,10 @@ while(True):
     mask1 = cv2.resize(frame, (600, 800), interpolation=cv2.INTER_AREA)
     mask2 = mask1[0:800, 0:480]
     mHSV = cv2.cvtColor(mask2, cv2.COLOR_BGR2HSV)
-    mask3 = imProc.backgroungRemove(mask2, appStatus)
+    mask3 = iP.backgroungRemove(mask2, appStatus)
     if appStatus == 0:
-        mask2 = imProc.drawCalibrationPoints(mask2)
-    mask2 = imProc.drawContours(mask2,mask3)
+        mask2 = iP.drawCalibrationPoints(mask2)
+    mask2 = iP.drawContours(mask2, mask3)
 
     # Display the resulting frame
     cv2.imshow('frame', mask2)
